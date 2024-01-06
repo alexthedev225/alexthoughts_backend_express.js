@@ -61,6 +61,9 @@ app.use("/api/users", userRoutes);
 app.use("/api/articles", articleRoutes, commentRoutes);
 app.use('/api/contact', nodemailerRoutes)
 
+app.head("/", (req, res) => {
+  res.status(200).end();
+})
 
 app.get("/", (req, res) => {
   res.send("Hello, world! Welcome to my server. 😉");
