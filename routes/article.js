@@ -8,7 +8,7 @@ router.post("/", multer, async (req, res) => {
     // Création de l'article
     const article = new Article({
       ...req.body,
-      image: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
+      image: `https://${req.get("host")}/images/${req.file.filename}`,
     });
 
     // Enregistrement de l'article
@@ -22,7 +22,6 @@ router.post("/", multer, async (req, res) => {
   }
 });
 
-
 // Récupération de l'article avec les commentaires
 router.get("/:id", async (req, res) => {
   try {
@@ -33,7 +32,9 @@ router.get("/:id", async (req, res) => {
     }
     res.status(200).json({ article });
   } catch (error) {
-    res.status(500).json({ error: "Erreur lors de la récupération de l'article." });
+    res
+      .status(500)
+      .json({ error: "Erreur lors de la récupération de l'article." });
   }
 });
 
@@ -44,8 +45,6 @@ router.get("/", async (req, res) => {
   // Réponse
   res.status(200).json(articles);
 });
-
-
 
 router.put("/:id", multer, async (req, res) => {
   // Validation des données
