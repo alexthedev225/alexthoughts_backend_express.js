@@ -4,22 +4,24 @@ const Article = require("../models/articles");
 const multer = require("../middleware/multer-config");
 
 router.post("/", multer, async (req, res) => {
-
-  // Création de l'article
-  const article = new Article({
-    ...req.body,
-    image: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
-  });
-
-  // Enregistrement de l'article
   try {
+    // Création de l'article
+    const article = new Article({
+      ...req.body,
+      image: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
+    });
+
+    // Enregistrement de l'article
     await article.save();
+
+    // Renvoyer une réponse avec le lien HTTPS
     res.status(201).json({ article });
   } catch (error) {
     console.error("Erreur lors de l'enregistrement de l'article :", error);
     res.status(500).json({ error: "Erreur lors de la création de l'article." });
   }
 });
+
 
 // Récupération de l'article avec les commentaires
 router.get("/:id", async (req, res) => {
