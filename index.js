@@ -55,7 +55,7 @@ io.on("connection", (socket) => {
 });
 
 app.use(express.json());
-app.use("/images", express.static("images"));
+app.use("/images", express.static(__dirname + "/images"));
 
 app.use("/api/users", userRoutes);
 app.use("/api/articles", articleRoutes, commentRoutes);
