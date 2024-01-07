@@ -2,8 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/user");
 const articleRoutes = require("./routes/article");
-const commentRoutes = require('./routes/comments')
-const nodemailerRoutes = require('./routes/nodemailer')
+const commentRoutes = require("./routes/comments");
+const nodemailerRoutes = require("./routes/nodemailer");
 const http = require("http");
 const socketIO = require("socket.io");
 const path = require("path");
@@ -22,8 +22,8 @@ mongoose
 
 // Configuration des options CORS
 const corsOptions = {
-  origin: 'https://alex-thoughts-six.vercel.app', // Autoriser les demandes depuis ce domaine
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  origin: ["https://alex-thoughts-six.vercel.app", "http://localhost:5173"], // Autoriser les demandes depuis ces domaines
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true, // Autoriser les cookies et les en-têtes d'authentification
   optionsSuccessStatus: 204,
 };
@@ -33,12 +33,11 @@ app.use(cors(corsOptions));
 
 const io = socketIO(server, {
   cors: {
-    origin: 'https://alex-thoughts-six.vercel.app', // Autoriser les connexions depuis ce domaine
-    methods: ['GET', 'POST'],
+    origin: ["https://alex-thoughts-six.vercel.app", "http://localhost:5173"], // Autoriser les connexions depuis ces domaines
+    methods: ["GET", "POST"],
     credentials: true, // Autoriser les cookies
   },
 });
-
 
 // Middleware pour rendre io accessible dans les routes
 app.use((req, res, next) => {
@@ -50,8 +49,7 @@ app.use((req, res, next) => {
 io.on("connection", (socket) => {
   console.log("Nouvelle connexion socket");
 
-  socket.emit('message', 'Bienvenue !');
-
+  socket.emit("message", "Bienvenue !");
 });
 
 app.use(express.json());
@@ -59,11 +57,11 @@ app.use("/images", express.static(__dirname + "/images"));
 
 app.use("/api/users", userRoutes);
 app.use("/api/articles", articleRoutes, commentRoutes);
-app.use('/api/contact', nodemailerRoutes)
+app.use("/api/contact", nodemailerRoutes);
 
 app.head("/", (req, res) => {
   res.status(200).end();
-})
+});
 
 app.get("/", (req, res) => {
   res.send("Hello, world! Welcome to my server. 😉");
