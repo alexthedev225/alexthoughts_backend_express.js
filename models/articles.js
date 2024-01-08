@@ -14,8 +14,7 @@ const articleSchema = new mongoose.Schema({
     required: true,
   },
   image: {
-    type: String,
-    required: true,
+    type: Buffer,  // Utiliser directement Buffer pour stocker les données binaires de l'image
   },
   category: {
     type: String,

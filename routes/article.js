@@ -1,14 +1,17 @@
 const express = require("express");
 const router = express.Router();
 const Article = require("../models/articles");
-const multer = require("../middleware/multer-config");
+const multer = require("multer");
 
-router.post("/", multer, async (req, res) => {
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+router.post("/", upload.single("image"), async (req, res) => {
   try {
-    // Création de l'article
+    // Création de l'article avec les données du formulaire
     const article = new Article({
       ...req.body,
-      image: `https://${req.get("host")}/images/${req.file.filename}`,
+      image: req.file.buffer.toString("base64"),
     });
 
     // Enregistrement de l'article
