@@ -36,7 +36,7 @@ router.get("/:id", async (req, res) => {
       res.status(404).json({ error: "Article introuvable." });
       return;
     }
-    res.status(200).json( article );
+    res.status(200).json({ article });
   } catch (error) {
     res
       .status(500)
