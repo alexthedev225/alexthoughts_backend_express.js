@@ -22,7 +22,7 @@ mongoose
 
 // Configuration des options CORS
 const corsOptions = {
-  origin: ["https://alex-thoughts-six.vercel.app","https://alexthoughts.vercel.app", "http://localhost:5173", "http://localhost:3001"], // Autoriser les demandes depuis ces domaines
+  origin: ["https://alexthoughts.vercel.app", "http://localhost:5173"], // Autoriser les demandes depuis ces domaines
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true, // Autoriser les cookies et les en-têtes d'authentification
   optionsSuccessStatus: 204,
@@ -33,7 +33,7 @@ app.use(cors(corsOptions));
 
 const io = socketIO(server, {
   cors: {
-    origin: ["https://alex-thoughts-six.vercel.app", "http://localhost:5173", "http://localhost:3001"], // Autoriser les connexions depuis ces domaines
+    origin: ["https://alexthoughts.vercel.app", "http://localhost:5173"], // Autoriser les connexions depuis ces domaines
     methods: ["GET", "POST"],
     credentials: true, // Autoriser les cookies
   },
