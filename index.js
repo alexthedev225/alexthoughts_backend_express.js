@@ -59,6 +59,10 @@ app.use("/api/users", userRoutes);
 app.use("/api/articles", articleRoutes, commentRoutes);
 app.use("/api/contact", nodemailerRoutes);
 
+app.get('/ping', (req, res) => {
+  res.status(200).send('Pong!');
+});
+
 app.head("/", (req, res) => {
   res.status(200).end();
 });

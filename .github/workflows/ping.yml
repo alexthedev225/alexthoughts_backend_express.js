@@ -1,0 +1,13 @@
+name: Ping Backend
+
+on:
+  schedule:
+    - cron: '*/10 * * * *' # Exécute toutes les 10 minutes
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ping Backend
+        run: curl -sS https://alex-thoughts.onrender.com/ping
